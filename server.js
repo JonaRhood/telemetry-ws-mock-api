@@ -18,21 +18,21 @@ wss.on('connection', ws => {
 
 
 const interval = setInterval(() => {
+  let data = [];
+
+  for (let i = 1; i <= 20; i++) {
+    data.push({
+      id: i,
+      heartRate: Math.floor(Math.random() * 40) + 60,
+      oxygen: Math.floor(Math.random() * 10) + 90,
+      timestamp: new Date().toISOString(),
+    });
+
+    console.log(data);
+  }
 
   wss.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
-      let data = [];
-
-      for (let i = 1; i <= 20; i++) {
-        data.push({
-          id: i,
-          heartRate: Math.floor(Math.random() * 40) + 60,
-          oxygen: Math.floor(Math.random() * 10) + 90,
-          timestamp: new Date().toISOString(),
-        });
-
-        console.log(data);
-      }
       client.send(JSON.stringify(data));
     }
   });
