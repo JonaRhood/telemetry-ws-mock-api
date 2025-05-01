@@ -22,26 +22,35 @@ const interval = setInterval(() => {
 
   for (let i = 1; i <= 30; i++) {
     const now = new Date();
-    const timestamp = new Date(now.getTime() - Math.random() * 3600000).toISOString(); 
-  
+    const timestamp = now.toLocaleString("es-ES", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+      timeZone: "Europe/Madrid",
+    });
+
     data.push({
       id: i,
-      heartRate: Math.floor(Math.random() * 40) + 60,               
-      oxygen: Math.floor(Math.random() * 5) + 94,                   
-      temperature: (36 + Math.random() * 2).toFixed(1),             
-      respirationRate: Math.floor(Math.random() * 6) + 12,          
+      heartRate: Math.floor(Math.random() * 40) + 60,
+      oxygen: Math.floor(Math.random() * 5) + 94,
+      temperature: (36 + Math.random() * 2).toFixed(1),
+      respirationRate: Math.floor(Math.random() * 6) + 12,
       bloodPressure: {
-        systolic: Math.floor(Math.random() * 20) + 100,             
-        diastolic: Math.floor(Math.random() * 10) + 60,             
+        systolic: Math.floor(Math.random() * 20) + 100,
+        diastolic: Math.floor(Math.random() * 10) + 60,
       },
-      glucose: Math.floor(Math.random() * 40) + 80,                
-      ecgSignal: Array.from({ length: 20 }, () =>                  
+      glucose: Math.floor(Math.random() * 40) + 80,
+      ecgSignal: Array.from({ length: 20 }, () =>
         parseFloat((Math.random() * 2 - 1).toFixed(2))
       ),
       timestamp,
     });
   }
-  
+
   console.log(data);
 
   wss.clients.forEach(client => {
