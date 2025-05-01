@@ -18,18 +18,31 @@ wss.on('connection', ws => {
 
 
 const interval = setInterval(() => {
-  let data = [];
+  const data = [];
 
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= 30; i++) {
+    const now = new Date();
+    const timestamp = new Date(now.getTime() - Math.random() * 3600000).toISOString(); 
+  
     data.push({
       id: i,
-      heartRate: Math.floor(Math.random() * 40) + 60,
-      oxygen: Math.floor(Math.random() * 10) + 90,
-      timestamp: new Date().toISOString(),
+      heartRate: Math.floor(Math.random() * 40) + 60,               
+      oxygen: Math.floor(Math.random() * 5) + 94,                   
+      temperature: (36 + Math.random() * 2).toFixed(1),             
+      respirationRate: Math.floor(Math.random() * 6) + 12,          
+      bloodPressure: {
+        systolic: Math.floor(Math.random() * 20) + 100,             
+        diastolic: Math.floor(Math.random() * 10) + 60,             
+      },
+      glucose: Math.floor(Math.random() * 40) + 80,                
+      ecgSignal: Array.from({ length: 20 }, () =>                  
+        parseFloat((Math.random() * 2 - 1).toFixed(2))
+      ),
+      timestamp,
     });
-
-    console.log(data);
   }
+  
+  console.log(data);
 
   wss.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
@@ -37,7 +50,7 @@ const interval = setInterval(() => {
     }
   });
 
-}, 2000);
+}, 1000);
 
 app.get('/health', (req, res) => res.status(200).send('OK'));
 
