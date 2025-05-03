@@ -22,18 +22,6 @@ const interval = setInterval(() => {
   const data = [];
 
   for (let i = 1; i <= 30; i++) {
-    const now = new Date();
-    const timestamp = now.toLocaleString("es-ES", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-      timeZone: "Europe/Madrid",
-    });
-
     data.push({
       id: i,
       heartRate: Math.floor(Math.random() * 40) + 60,
@@ -48,7 +36,7 @@ const interval = setInterval(() => {
       ecgSignal: Array.from({ length: 20 }, () =>
         parseFloat((Math.random() * 2 - 1).toFixed(2))
       ),
-      timestamp,
+      timestamp: Date.now(),
     });
   }
 
