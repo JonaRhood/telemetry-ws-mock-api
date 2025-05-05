@@ -19,7 +19,7 @@ wss.on('connection', ws => {
 const interval = setInterval(() => {
   const data = [];
 
-  for (let i = 1; i <= 30; i++) {
+  for (let i = 1; i <= 100; i++) {
     data.push({
       id: i,
       heartRate: Math.floor(Math.random() * 40) + 60,
